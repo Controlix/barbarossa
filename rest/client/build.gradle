@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "Main"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile "javax.ws.rs:javax.ws.rs-api:2.0.1"
+
+ 	compile 'org.glassfish.jersey.core:jersey-client:2.18'
+ 	compile 'org.glassfish.jersey.core:jersey-common:2.18'
+
+ 	compile 'com.google.guava:guava:18.0'
+}
