@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'com.google.guava:guava:18.0'
+
+        compile "javax.ws.rs:javax.ws.rs-api:2.0.1"
+
+        compile 'org.glassfish.jersey.core:jersey-server:2.18'
+        compile 'org.glassfish.jersey.core:jersey-common:2.18'
+
+	compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.18'
+}
+
+def port = Integer.getInteger('httpPort', 8080)
+
+[jettyRun, jettyRunWar]*.httpPort = port
+[jettyRun, jettyRunWar,jettyStop]*.stopPort = port+1
+[jettyRun, jettyRunWar,jettyStop]*.stopKey = 'stopKey'
