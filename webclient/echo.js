@@ -1,14 +1,13 @@
-var http = require('http');
-var dispatcher = require('httpdispatcher');
+var express = require('express');
+var app = express();
 
-http.createServer(function (req, res) {
-	dispatcher.dispatch(req, res);
-}).listen(8090, function() {
+
+app.get("/webclient/rest/echo/:msg", function(req,res) {
+	var msg = req.params.msg;
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.end(msg);
+});
+
+app.listen(8090, function() {
 	console.log('Server running ...');
 });
-
-dispatcher.onGet("/webclient/rest/echo/hello", function(req,res) {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('hello');
-});
-
