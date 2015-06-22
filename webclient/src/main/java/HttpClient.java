@@ -26,7 +26,7 @@ public class HttpClient implements Client {
 		ClientConfig config = new ClientConfig();
 		javax.ws.rs.client.Client client = ClientBuilder.newClient(config);
 
-		URI uri = UriBuilder.fromUri("http://localhost:" + port + "/webclient/rest/echo").build();
+		URI uri = UriBuilder.fromUri("http://ip6-localhost:" + port + "/webclient/rest/echo").build();
 		WebTarget target = client.target(uri).path("hello");
 		invocation = target.request().accept(MediaType.TEXT_PLAIN).buildGet();
 	}
