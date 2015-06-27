@@ -18,15 +18,15 @@ public class HttpClient implements Client {
 	private long calls = 0;
 	private Invocation invocation;
 
-	public HttpClient() {
-		this(8080);
+	public HttpClient(String root) {
+		this(8080, root);
 	}
 
-	public HttpClient(int port) {
+	public HttpClient(int port, String root) {
 		ClientConfig config = new ClientConfig();
 		javax.ws.rs.client.Client client = ClientBuilder.newClient(config);
 
-		URI uri = UriBuilder.fromUri("http://ip6-localhost:" + port + "/webclient/rest/echo").build();
+		URI uri = UriBuilder.fromUri("http://ip6-localhost:" + port + "/" + root + "/rest/echo").build();
 		WebTarget target = client.target(uri).path("hello");
 		invocation = target.request().accept(MediaType.TEXT_PLAIN).buildGet();
 	}
