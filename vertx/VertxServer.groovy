@@ -1,13 +1,18 @@
-def server = vertx.createHttpServer()
+import org.vertx.groovy.core.http.RouteMatcher
 
-server.requestHandler({ request ->
+def rm = new RouteMatcher()
+rm.get("/vertx/rest/echo/:msg") { req ->
 
   // This handler gets called for each request that arrives on the server
-  def response = request.response
+  def response = req.response
   response.putHeader("content-type", "text/plain")
 
   // Write to the response and end it
-  response.end("Hello World!")
-})
+  def msg = req.params.msg
+  // println msg
+  response.end(msg)
+}
 
-server.listen(8080)
+vertx.createHttpServer().requestHandler(rm.asClosure()).listen(8090) {
+  println 'Server running ...'
+}
