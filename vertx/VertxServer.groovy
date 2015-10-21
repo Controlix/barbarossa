@@ -1,18 +1,16 @@
-import org.vertx.groovy.core.http.RouteMatcher
+import io.vertx.groovy.ext.web.Router
 
-def rm = new RouteMatcher()
-rm.get("/vertx/rest/echo/:msg") { req ->
+def router = Router.router(vertx)
 
-  // This handler gets called for each request that arrives on the server
-  def response = req.response
-  response.putHeader("content-type", "text/plain")
+router.route("/vertx/rest/echo/:msg").handler({ routingContext ->
+  def req = routingContext.request()
+  def msg = req.getParam("msg")
 
-  // Write to the response and end it
-  def msg = req.params.msg
-  // println msg
-  response.end(msg)
-}
+  def resp = routingContext.response()
+  resp.putHeader("content-type", "text/plain")
+  resp.end(msg)
+})
 
-vertx.createHttpServer().requestHandler(rm.asClosure()).listen(8090) {
+vertx.createHttpServer().requestHandler(router.&accept).listen(8091, "ip6-localhost") {
   println 'Server running ...'
 }

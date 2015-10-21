@@ -1,18 +1,23 @@
 def echoed = 0
 def run = true
 
-def client = vertx.createHttpClient().setPort(8090).setHost("localhost")
+def options = [
+  defaultHost: "ip6-localhost",
+  defaultPort: 8091
+]
+
+def client = vertx.createHttpClient(options)
 def send
 
 send = {
-  client.getNow("/vertx/rest/echo/hello") {
+  client.getNow("/vertx/rest/echo/hello") { response ->
     echoed++
     if (run) send()
     else println echoed
   }
 }
 
-vertx.setTimer(10000) {
+vertx.setTimer(2000) {
   run = false
 }
 

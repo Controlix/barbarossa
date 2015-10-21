@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'com.google.code.gson:gson:2.4'
+	compile 'org.codehaus.groovy:groovy-all:2.4.5'
+
+	testCompile 'junit:junit:4.12'
+}
+
